@@ -8,7 +8,7 @@ export function useGraphStorage() {
   const [edges, setEdges, onEdgesChange] = useEdgesState<any>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load from localStorage on mount
+  // fetch from localStorage on page render
   useEffect(() => {
     const storedNodes = localStorage.getItem("nodes");
     const storedEdges = localStorage.getItem("edges");
@@ -17,7 +17,7 @@ export function useGraphStorage() {
     setIsLoaded(true);
   }, [setNodes, setEdges]);
 
-  // Save to localStorage whenever nodes/edges change
+  // Save nodes and edges to localstorage
   useEffect(() => {
     if (isLoaded) {
       localStorage.setItem("nodes", JSON.stringify(nodes));
