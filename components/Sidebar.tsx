@@ -2,6 +2,8 @@
 
 import { GraphAnalytics } from "./GraphAnalytics";
 import { ThemeToggle } from "./ThemeToggle";
+import { Button } from "@/components/ui/button";
+import { Plus, Upload, Download, Wand2 } from "lucide-react";
 
 interface SidebarProps {
   nodes: any[];
@@ -44,34 +46,43 @@ export function Sidebar({
       <div className="p-4 border-b">
         <h2 className="font-semibold text-lg tracking-tight mb-4">Controls</h2>
         
-        <div className="flex flex-col gap-2">
-          <button
+        <div className="flex flex-col gap-3">
+          <Button
             onClick={onAddNode}
-            className="w-full justify-start bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 shadow"
+            className="w-full justify-start"
+            size="lg"
           >
+            <Plus className="mr-2 h-4 w-4" />
             Add Node
-          </button>
+          </Button>
           
           <div className="grid grid-cols-2 gap-2">
-            <button
+            <Button
               onClick={onImportCSV}
-              className="border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring shadow-sm"
+              variant="outline"
+              className="w-full"
             >
-              Import CSV
-            </button>
-            <button
+              <Upload className="mr-2 h-4 w-4" />
+              Import
+            </Button>
+            <Button
               onClick={onExportJSON}
-              className="border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring shadow-sm"
+              variant="outline"
+              className="w-full"
             >
-              Export JSON
-            </button>
+              <Download className="mr-2 h-4 w-4" />
+              Export
+            </Button>
           </div>
-          <button
-              onClick={onArrange}
-              className="w-full justify-start bg-secondary text-secondary-foreground hover:bg-secondary/80 h-9 px-4 py-2 mt-1 inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring shadow-sm"
-            >
-              ✨ Magic Arrange
-          </button>
+          
+          <Button
+            onClick={onArrange}
+            variant="secondary"
+            className="w-full"
+          >
+            <Wand2 className="mr-2 h-4 w-4 text-primary" />
+            Magic Arrange
+          </Button>
         </div>
       </div>
 

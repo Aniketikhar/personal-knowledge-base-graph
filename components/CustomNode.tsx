@@ -53,5 +53,5 @@ const CustomNode = ({ data }: NodeProps) => {
   );
 };
 
-export const nodeTypes = { default: CustomNode };
+export const nodeTypes = { default: CustomNode, custom: CustomNode };
 export default CustomNode;

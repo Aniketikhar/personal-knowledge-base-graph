@@ -124,3 +124,27 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* React Flow Overrides */
+.react-flow__controls.react-flow__controls {
+  @apply shadow-sm rounded-md overflow-hidden bg-background border border-border;
+}
+
+.react-flow__controls-button.react-flow__controls-button {
+  @apply bg-background border-b border-border text-foreground fill-foreground hover:bg-accent hover:text-accent-foreground;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.react-flow__controls-button.react-flow__controls-button:last-child {
+  @apply border-b-0;
+}
+
+.react-flow__controls-button.react-flow__controls-button svg {
+  @apply fill-current text-foreground;
+}
+
+.react-flow__controls-button.react-flow__controls-button[disabled] {
+  @apply opacity-50 cursor-not-allowed pointer-events-none;
+}

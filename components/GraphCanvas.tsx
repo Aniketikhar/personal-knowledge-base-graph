@@ -76,6 +76,7 @@ export default function GraphCanvas({ isMobileOpen, onCloseMobile, searchTerm, i
 
       return {
         ...node,
+        type: node.type || "custom",
         draggable: !isReadOnly,
         data: {
           ...node.data,
