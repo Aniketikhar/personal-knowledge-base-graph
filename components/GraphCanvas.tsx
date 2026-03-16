@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import ReactFlow, { Background, Controls, Panel } from "reactflow";
+import { useState, useMemo } from "react";
+import ReactFlow, { Background, Controls, MiniMap } from "reactflow";
 import "reactflow/dist/style.css";
 
 import { nodeTypes } from "@/components/CustomNode";
@@ -10,6 +10,7 @@ import ImportCSVModal from "@/components/modals/ImportCSVModal";
 import AddNodeModal from "@/components/modals/AddNodeModal";
 import EditNodeModal from "@/components/modals/EditNodeModal";
 import EditEdgeModal from "@/components/modals/EditEdgeModal";
+import { Sidebar } from "@/components/Sidebar";
 
 export default function GraphCanvas() {
   const {
@@ -28,12 +29,37 @@ export default function GraphCanvas() {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [selectedNode, setSelectedNode] = useState<any>(null);
   const [selectedEdge, setSelectedEdge] = useState<any>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // ── Import ──────────────────────────────────────────────────────────────
+  // Search logic (Highlights nodes matching searchTerm)
+  const highlightedNodes = useMemo(() => {
+    if (!searchTerm) return nodes;
+    const lowerSearch = searchTerm.toLowerCase();
+    return nodes.map(node => ({
+        ...node,
+        data: {
+          ...node.data,
+          isHighlighted: node.data.label?.toLowerCase().includes(lowerSearch) || 
+                         node.data.note?.toLowerCase().includes(lowerSearch)
+        }
+    }));
+  }, [nodes, searchTerm]);
+
+  // ── Import / Export ──────────────────────────────────────────────────────
   const handleCSVImport = (newNodes: any[], newEdges: any[]) => {
     setNodes(newNodes);
     setEdges(newEdges);
     setIsImportOpen(false);
+  };
+
+  const handleJSONExport = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ nodes, edges }));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", "knowledge-graph.json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
   };
 
   // ── Add Node ────────────────────────────────────────────────────────────
@@ -87,43 +113,37 @@ export default function GraphCanvas() {
   if (!isLoaded) return null;
 
   return (
-    <div className="w-full h-full relative">
-      <ReactFlow
+    <div className="w-full h-full flex relative">
+      <Sidebar 
         nodes={nodes}
         edges={edges}
-        nodeTypes={nodeTypes}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        onNodeClick={handleNodeClick}
-        onEdgeClick={handleEdgeClick}
-        fitView
-      >
-        <Panel position="top-left">
-          <div className="bg-slate-200 p-2 rounded shadow">
-            <ul className="list-none flex gap-2 m-0 p-0">
-              <li>
-                <button
-                  onClick={() => setIsImportOpen(true)}
-                  className="bg-white border px-3 py-1 rounded text-sm hover:bg-slate-50 transition-colors cursor-pointer"
-                >
-                  Import CSV
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => setIsAddOpen(true)}
-                  className="bg-white border px-3 py-1 rounded text-sm hover:bg-slate-50 transition-colors cursor-pointer"
-                >
-                  Add Node
-                </button>
-              </li>
-            </ul>
-          </div>
-        </Panel>
-        <Background />
-        <Controls />
-      </ReactFlow>
+        onAddNode={() => setIsAddOpen(true)}
+        onImportCSV={() => setIsImportOpen(true)}
+        onExportJSON={handleJSONExport}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+      />
+      
+      <div className="flex-1 relative h-full">
+        <ReactFlow
+          nodes={highlightedNodes}
+          edges={edges}
+          nodeTypes={nodeTypes}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          onNodeClick={handleNodeClick}
+          onEdgeClick={handleEdgeClick}
+          fitView
+        >
+          <Background gap={16} />
+          <Controls className="bg-background border-border shadow-sm fill-foreground text-foreground" />
+          <MiniMap className="bg-background border border-border shadow-sm mask-border" 
+                   nodeColor={(n) => n.data?.isHighlighted ? 'var(--primary)' : 'var(--muted-foreground)'}
+                   maskColor="var(--background)"
+          />
+        </ReactFlow>
+      </div>
 
       <ImportCSVModal
         isOpen={isImportOpen}
