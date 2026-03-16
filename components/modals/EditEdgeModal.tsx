@@ -26,15 +26,15 @@ export default function EditEdgeModal({
   if (!edge) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-xl w-[400px] max-w-full m-4">
+    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="bg-card text-card-foreground border border-border p-6 rounded-xl shadow-xl w-[400px] max-w-full m-4">
         <div className="flex justify-between items-start mb-4">
-          <h2 className="text-xl font-semibold text-slate-800">
+          <h2 className="text-xl font-semibold tracking-tight">
             Edit Connection
           </h2>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600 p-1"
+            className="text-muted-foreground hover:text-foreground transition-colors p-1"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,7 @@ export default function EditEdgeModal({
           </button>
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
+          <label className="block text-sm font-medium mb-1.5">
             Edge Label
           </label>
           <input
@@ -61,20 +61,20 @@ export default function EditEdgeModal({
             value={label}
             onChange={(e) => setLabel(e.target.value)}
             placeholder="e.g. depends on, relates to..."
-            className="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           />
         </div>
         <div className="flex justify-between items-center mt-6">
           <button
             onClick={() => onDelete(edge.id)}
-            className="px-4 py-2 border border-red-200 text-red-600 bg-red-50 rounded hover:bg-red-100 text-sm transition-colors"
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-10 px-4 py-2"
           >
             Delete Connection
           </button>
           <div className="flex gap-2">
             <button
               onClick={() => onSave(edge.id, label)}
-              className="px-4 py-2 bg-blue-600 border border-blue-600 rounded text-white hover:bg-blue-700 text-sm transition-colors"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
             >
               Save Changes
             </button>

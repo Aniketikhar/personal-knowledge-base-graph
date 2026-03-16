@@ -82,41 +82,41 @@ export default function ImportCSVModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-xl w-[420px] max-w-full m-4">
-        <h2 className="text-xl font-semibold mb-4 text-slate-800">
+    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="bg-card text-card-foreground border border-border p-6 rounded-xl shadow-xl w-[420px] max-w-full m-4">
+        <h2 className="text-xl font-semibold mb-4 tracking-tight">
           Import from CSV
         </h2>
 
         <div className="flex flex-col gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium mb-1.5">
               Nodes CSV{" "}
-              <span className="text-slate-400">(id, title, note)</span>
+              <span className="text-muted-foreground font-normal">(id, title, note)</span>
             </label>
             <input
               type="file"
               accept=".csv"
               onChange={(e) => setNodesFile(e.target.files?.[0] || null)}
-              className="w-full border border-slate-300 rounded px-3 py-2 text-sm file:mr-3 file:border-0 file:bg-slate-100 file:px-3 file:py-1 file:rounded file:text-sm file:cursor-pointer"
+              className="flex w-full rounded-md border border-input bg-background text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium mb-1.5">
               Edges CSV{" "}
-              <span className="text-slate-400">(source, target, label)</span>
+              <span className="text-muted-foreground font-normal">(source, target, label)</span>
             </label>
             <input
               type="file"
               accept=".csv"
               onChange={(e) => setEdgesFile(e.target.files?.[0] || null)}
-              className="w-full border border-slate-300 rounded px-3 py-2 text-sm file:mr-3 file:border-0 file:bg-slate-100 file:px-3 file:py-1 file:rounded file:text-sm file:cursor-pointer"
+              className="flex w-full rounded-md border border-input bg-background text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
             />
           </div>
 
           {error && (
-            <p className="text-red-600 text-xs bg-red-50 border border-red-200 px-3 py-2 rounded">
+            <p className="text-destructive text-sm bg-destructive/10 border border-destructive/20 px-3 py-2 rounded-md">
               {error}
             </p>
           )}
@@ -125,13 +125,13 @@ export default function ImportCSVModal({
         <div className="flex justify-end gap-2 mt-6">
           <button
             onClick={onClose}
-            className="px-4 py-2 border border-slate-300 rounded text-slate-700 hover:bg-slate-50 text-sm transition-colors"
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
           >
             Cancel
           </button>
           <button
             onClick={handleImport}
-            className="px-4 py-2 bg-blue-600 border border-blue-600 rounded text-white hover:bg-blue-700 text-sm transition-colors"
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
           >
             Import
           </button>

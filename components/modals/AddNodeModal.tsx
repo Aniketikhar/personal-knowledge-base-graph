@@ -52,44 +52,44 @@ export default function AddNodeModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-xl w-96 max-w-full">
-        <h2 className="text-xl font-semibold mb-4 text-slate-800">
+    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="bg-card text-card-foreground border border-border p-6 rounded-xl shadow-xl w-96 max-w-full">
+        <h2 className="text-xl font-semibold mb-4 tracking-tight">
           Add New Node
         </h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
-              Title (Required)
+            <label className="block text-sm font-medium mb-1.5">
+              Title <span className="text-destructive">*</span>
             </label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               placeholder="e.g. React Concepts"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium mb-1.5">
               Note / Description
             </label>
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              className="w-full border border-slate-300 rounded px-3 py-2 text-sm max-h-32 min-h-[64px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               placeholder="Optional details..."
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium mb-1.5">
               Link to existing node (Optional)
             </label>
             <select
               value={linkTargetId}
               onChange={(e) => setLinkTargetId(e.target.value)}
-              className="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <option value="">-- None --</option>
               {existingNodes.map((n: any) => (
@@ -100,30 +100,30 @@ export default function AddNodeModal({
             </select>
           </div>
           {linkTargetId && (
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
-                Edge Label (Optional)
+            <div className="animate-in fade-in slide-in-from-top-2 duration-200">
+              <label className="block text-sm font-medium mb-1.5">
+                Edge Label <span className="text-muted-foreground font-normal">(Optional)</span>
               </label>
               <input
                 type="text"
                 value={edgeLabel}
                 onChange={(e) => setEdgeLabel(e.target.value)}
-                className="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 placeholder="e.g. belongs to, depends on..."
               />
             </div>
           )}
-          <div className="flex justify-end gap-2 mt-4">
+          <div className="flex justify-end gap-2 mt-2">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-slate-300 rounded text-slate-700 hover:bg-slate-50 text-sm transition-colors"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 border border-blue-600 rounded text-white hover:bg-blue-700 text-sm transition-colors"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
             >
               Save Node
             </button>
