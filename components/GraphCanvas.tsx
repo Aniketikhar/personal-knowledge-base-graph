@@ -12,7 +12,12 @@ import EditNodeModal from "@/components/modals/EditNodeModal";
 import EditEdgeModal from "@/components/modals/EditEdgeModal";
 import { Sidebar } from "@/components/Sidebar";
 
-export default function GraphCanvas() {
+interface GraphCanvasProps {
+  isMobileOpen: boolean;
+  onCloseMobile: () => void;
+}
+
+export default function GraphCanvas({ isMobileOpen, onCloseMobile }: GraphCanvasProps) {
   const {
     nodes,
     setNodes,
@@ -113,7 +118,7 @@ export default function GraphCanvas() {
   if (!isLoaded) return null;
 
   return (
-    <div className="w-full h-full flex relative">
+    <div className="w-full h-full flex relative overflow-hidden">
       <Sidebar 
         nodes={nodes}
         edges={edges}
@@ -122,9 +127,11 @@ export default function GraphCanvas() {
         onExportJSON={handleJSONExport}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
+        isOpen={isMobileOpen}
+        onClose={onCloseMobile}
       />
       
-      <div className="flex-1 relative h-full">
+      <div className="flex-1 relative h-full w-full min-w-0">
         <ReactFlow
           nodes={highlightedNodes}
           edges={edges}

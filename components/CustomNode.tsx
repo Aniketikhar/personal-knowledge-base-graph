@@ -4,35 +4,41 @@ const CustomNode = ({ data }: NodeProps) => {
   const isHighlighted = data.isHighlighted;
 
   return (
-    <div 
-      className={`bg-card text-card-foreground border rounded-xl shadow-sm p-4 min-w-[180px] max-w-[280px] transition-all duration-200 
-      ${isHighlighted ? 'ring-2 ring-primary border-primary shadow-md scale-[1.02]' : 'border-border hover:shadow-md hover:border-muted-foreground/50'}`}
-    >
-      <Handle
-        type="target"
-        position={Position.Top}
-        className="w-3 h-3 bg-muted-foreground border-2 border-background"
-      />
-      <div className="flex flex-col gap-1.5">
-        <div className="flex items-center gap-2">
-          <div className={`w-2 h-2 rounded-full ${isHighlighted ? 'bg-primary' : 'bg-muted-foreground/40'}`} />
-          <div className="font-semibold text-sm leading-none tracking-tight">
-            {data.label || "Untitled"}
-          </div>
-        </div>
+    <>
+      <Handle type="target" position={Position.Top} className="w-3 h-3 border-2 border-background bg-muted-foreground transition-all duration-300 group-hover:bg-primary z-10" />
+      
+      <div 
+        className={`group relative min-w-[180px] max-w-[280px] px-5 py-4 rounded-xl shadow-md border bg-card/90 backdrop-blur-md transition-all duration-300
+        ${data.selected ? "ring-2 ring-primary border-primary shadow-lg shadow-primary/20 scale-[1.02] z-20" : "border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"}
+        ${isHighlighted ? "ring-4 ring-offset-2 ring-violet-500 shadow-xl shadow-violet-500/30 scale-105" : ""}
+      `}
+      >
+        {/* Glow effect behind node on hover */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
         
-        {data.note && (
-          <div className="text-xs text-muted-foreground mt-1 bg-muted/30 p-2 rounded-md overflow-hidden line-clamp-4 text-ellipsis whitespace-pre-wrap">
-            {data.note}
+        <div className="relative z-10">
+          <div className="flex items-start justify-between mb-2 gap-3">
+            <h3 className="font-bold text-base leading-tight break-words text-foreground group-hover:text-primary transition-colors flex-1">
+              {data.label}
+            </h3>
+            {/* Type/Category dot indicator */}
+            <div className={`w-2.5 h-2.5 rounded-full mt-1 shrink-0 shadow-sm ${
+              data.label.toLowerCase().includes('react') ? 'bg-cyan-500 shadow-cyan-500/50' : 
+              data.label.toLowerCase().includes('state') ? 'bg-emerald-500 shadow-emerald-500/50' : 
+              'bg-primary shadow-primary/50'
+            }`} />
           </div>
-        )}
+          
+          {data.note && (
+            <p className="text-sm text-muted-foreground line-clamp-4 leading-relaxed mt-1 border-t border-border/50 pt-2 group-hover:text-foreground/80 transition-colors">
+              {data.note}
+            </p>
+          )}
+        </div>
       </div>
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        className="w-3 h-3 bg-muted-foreground border-2 border-background"
-      />
-    </div>
+      
+      <Handle type="source" position={Position.Bottom} className="w-3 h-3 border-2 border-background bg-muted-foreground transition-all duration-300 group-hover:bg-primary z-10" />
+    </>
   );
 };
 

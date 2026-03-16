@@ -10,6 +10,8 @@ interface SidebarProps {
   onExportJSON: () => void;
   searchTerm: string;
   onSearchChange: (value: string) => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 export function Sidebar({
@@ -20,9 +22,26 @@ export function Sidebar({
   onExportJSON,
   searchTerm,
   onSearchChange,
+  isOpen = false,
+  onClose,
 }: SidebarProps) {
   return (
-    <div className="w-80 h-full border-r bg-card/50 backdrop-blur supports-backdrop-filter:bg-background/60 flex flex-col shadow-sm">
+    <>
+      {/* Mobile Backdrop */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden"
+          onClick={onClose}
+        />
+      )}
+      
+      <div className={`
+        fixed inset-y-0 left-0 z-50 w-80 h-[calc(100vh-3.5rem)] top-14
+        border-r bg-card/95 backdrop-blur supports-backdrop-filter:bg-background/60 shadow-lg 
+        transform transition-transform duration-300 ease-in-out flex flex-col
+        md:relative md:top-0 md:h-full md:shadow-none md:translate-x-0
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+      `}>
       <div className="p-4 border-b">
         <h2 className="font-semibold text-lg tracking-tight mb-4">Controls</h2>
         
@@ -68,5 +87,6 @@ export function Sidebar({
         <GraphAnalytics nodes={nodes} edges={edges} />
       </div>
     </div>
+    </>
   );
 }
