@@ -88,10 +88,14 @@ export default function GraphCanvas({ isMobileOpen, onCloseMobile, searchTerm, i
   }, [nodes, searchTerm, focusData]);
 
   const handleCSVImport = (newNodes: any[], newEdges: any[]) => {
-    // We can auto-layout newly imported graphs immediately
+    // Combine existing and new elements
+    const combinedNodes = [...nodes, ...newNodes];
+    const combinedEdges = [...edges, ...newEdges];
+
+    // Auto-layout the entire combined graph
     const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-      newNodes,
-      newEdges,
+      combinedNodes,
+      combinedEdges,
       "LR"
     );
     setNodes(layoutedNodes);

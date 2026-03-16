@@ -81,12 +81,52 @@ export default function ImportCSVModal({
     }
   };
 
+  const downloadSample = (type: 'nodes' | 'edges') => {
+    let content = "";
+    let filename = "";
+    
+    if (type === 'nodes') {
+      content = "id,title,note\n1,React,A declarative component-based UI library\n2,Next.js,The React Framework for the Web\n3,TailwindCSS,A utility-first CSS framework";
+      filename = "sample-nodes.csv";
+    } else {
+      content = "source,target,label\n1,2,Uses\n2,3,Styled with";
+      filename = "sample-edges.csv";
+    }
+
+    const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-card text-card-foreground border border-border p-6 rounded-xl shadow-xl w-[420px] max-w-full m-4">
-        <h2 className="text-xl font-semibold mb-4 tracking-tight">
-          Import from CSV
-        </h2>
+      <div className="bg-card text-card-foreground border border-border p-6 rounded-xl shadow-xl w-[440px] max-w-full m-4">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold tracking-tight">
+            Import from CSV
+          </h2>
+          <div className="flex gap-2">
+            <button 
+              onClick={() => downloadSample('nodes')}
+              className="text-xs text-primary hover:text-primary/80 transition-colors underline underline-offset-2"
+            >
+              Sample Nodes
+            </button>
+            <span className="text-muted-foreground text-xs">•</span>
+            <button 
+              onClick={() => downloadSample('edges')}
+              className="text-xs text-primary hover:text-primary/80 transition-colors underline underline-offset-2"
+            >
+              Sample Edges
+            </button>
+          </div>
+        </div>
 
         <div className="flex flex-col gap-4">
           <div>
@@ -98,7 +138,7 @@ export default function ImportCSVModal({
               type="file"
               accept=".csv"
               onChange={(e) => setNodesFile(e.target.files?.[0] || null)}
-              className="flex w-full rounded-md border border-input bg-background text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
+              className="flex w-full rounded-md border border-input bg-background text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-medium file:bg-secondary file:text-secondary-foreground hover:file:bg-secondary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
             />
           </div>
 
@@ -111,7 +151,7 @@ export default function ImportCSVModal({
               type="file"
               accept=".csv"
               onChange={(e) => setEdgesFile(e.target.files?.[0] || null)}
-              className="flex w-full rounded-md border border-input bg-background text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
+              className="flex w-full rounded-md border border-input bg-background text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-medium file:bg-secondary file:text-secondary-foreground hover:file:bg-secondary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
             />
           </div>
 

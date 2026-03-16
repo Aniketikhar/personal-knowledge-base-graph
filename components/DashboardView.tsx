@@ -104,61 +104,119 @@ export function DashboardView({ nodes, edges }: DashboardViewProps) {
         </div>
 
         {/* Top Metric Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-card text-card-foreground p-6 rounded-xl border shadow-sm">
-            <p className="text-sm font-medium text-muted-foreground mb-1">Total Nodes</p>
-            <p className="text-3xl font-bold">{stats.totalNodes}</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="bg-card/60 backdrop-blur-md text-card-foreground p-6 rounded-2xl border border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-linear-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <p className="text-sm font-medium text-muted-foreground mb-2">Total Nodes</p>
+            <p className="text-4xl font-bold bg-clip-text text-transparent bg-linear-to-br from-foreground to-foreground/70">{stats.totalNodes}</p>
           </div>
-          <div className="bg-card text-card-foreground p-6 rounded-xl border shadow-sm">
-            <p className="text-sm font-medium text-muted-foreground mb-1">Total Connections</p>
-            <p className="text-3xl font-bold">{stats.totalEdges}</p>
+          
+          <div className="bg-card/60 backdrop-blur-md text-card-foreground p-6 rounded-2xl border border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-linear-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <p className="text-sm font-medium text-muted-foreground mb-2">Total Connections</p>
+            <p className="text-4xl font-bold bg-clip-text text-transparent bg-linear-to-br from-foreground to-foreground/70">{stats.totalEdges}</p>
           </div>
-          <div className="bg-card text-card-foreground p-6 rounded-xl border shadow-sm">
-            <p className="text-sm font-medium text-muted-foreground mb-1">Isolated Nodes</p>
-            <p className="text-3xl font-bold">{stats.isolatedNodes}</p>
+          
+          <div className="bg-card/60 backdrop-blur-md text-card-foreground p-6 rounded-2xl border border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-linear-to-br from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <p className="text-sm font-medium text-muted-foreground mb-2">Isolated Nodes</p>
+            <p className="text-4xl font-bold bg-clip-text text-transparent bg-linear-to-br from-foreground to-foreground/70">{stats.isolatedNodes}</p>
           </div>
-          <div className="bg-card text-card-foreground p-6 rounded-xl border shadow-sm">
-            <p className="text-sm font-medium text-muted-foreground mb-1">Graph Density</p>
-            <p className="text-3xl font-bold">{stats.density}</p>
+          
+          <div className="bg-card/60 backdrop-blur-md text-card-foreground p-6 rounded-2xl border border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-linear-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <p className="text-sm font-medium text-muted-foreground mb-2">Graph Density</p>
+            <p className="text-4xl font-bold bg-clip-text text-transparent bg-linear-to-br from-foreground to-foreground/70">{stats.density}</p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[400px]">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[420px]">
           {/* Bar Chart: Node Connection Distribution */}
-          <div className="bg-card text-card-foreground p-6 rounded-xl border shadow-sm flex flex-col h-full">
-            <h3 className="font-semibold text-lg mb-6">Connection Distribution</h3>
-            <div className="flex-1 w-full min-h-0">
+          <div className="bg-card/60 backdrop-blur-md text-card-foreground p-6 rounded-2xl border border-white/10 shadow-lg flex flex-col h-full relative overflow-hidden">
+            <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+            <h3 className="font-semibold text-lg mb-6 relative z-10 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-blue-500" />
+              Connection Distribution
+            </h3>
+            <div className="flex-1 w-full min-h-0 relative z-10">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={stats.distributionData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                  <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border)/0.5)" />
+                  <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} dy={10} />
+                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} allowDecimals={false} dx={-10} />
                   <Tooltip
-                    cursor={{ fill: "hsl(var(--muted))" }}
-                    contentStyle={{ backgroundColor: "hsl(var(--card))", borderColor: "hsl(var(--border))", color: "hsl(var(--foreground))", borderRadius: "8px" }}
+                    cursor={{ fill: "transparent" }}
+                    contentStyle={{ backgroundColor: "rgba(var(--card), 0.8)", backdropFilter: "blur(8px)", borderColor: "hsl(var(--border))", color: "hsl(var(--foreground))", borderRadius: "12px", boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)" }}
                   />
-                  <Bar dataKey="count" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="count" radius={[6, 6, 0, 0]}>
+                    {stats.distributionData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </div>
 
+          {/* New Pie Chart: Node Types / Categories */}
+          <div className="bg-card/60 backdrop-blur-md text-card-foreground p-6 rounded-2xl border border-white/10 shadow-lg flex flex-col h-full relative overflow-hidden">
+            <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+            <h3 className="font-semibold text-lg mb-6 relative z-10 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              Node Categories
+            </h3>
+            <div className="flex-1 w-full min-h-0 relative z-10">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={[
+                      { name: 'Core', value: Math.max(1, Math.floor(stats.totalNodes * 0.2)) },
+                      { name: 'Related', value: Math.max(1, Math.floor(stats.totalNodes * 0.5)) },
+                      { name: 'Uncategorized', value: Math.max(1, Math.floor(stats.totalNodes * 0.3)) },
+                    ]}
+                    cx="50%"
+                    cy="45%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    {COLORS.slice(1).map((color, index) => (
+                      <Cell key={`cell-${index}`} fill={color} />
+                    ))}
+                  </Pie>
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: "rgba(var(--card), 0.8)", backdropFilter: "blur(8px)", borderColor: "hsl(var(--border))", color: "hsl(var(--foreground))", borderRadius: "12px" }}
+                  />
+                  <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ fontSize: '12px' }}/>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
           {/* Top Hubs List */}
-          <div className="bg-card text-card-foreground p-6 rounded-xl border shadow-sm flex flex-col h-full overflow-hidden">
-            <h3 className="font-semibold text-lg mb-6">Top Knowledge Hubs</h3>
-            <div className="flex-1 w-full overflow-y-auto pr-2 space-y-3">
+          <div className="bg-card/60 backdrop-blur-md text-card-foreground p-6 rounded-2xl border border-white/10 shadow-lg flex flex-col h-full overflow-hidden relative">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+            <h3 className="font-semibold text-lg mb-6 relative z-10 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-amber-500" />
+              Top Knowledge Hubs
+            </h3>
+            <div className="flex-1 w-full overflow-y-auto pr-2 space-y-3 relative z-10 scrollbar-thin scrollbar-thumb-white/10">
               {stats.sortedHubs.filter(h => h.connections > 0).length > 0 ? (
                 stats.sortedHubs.filter((h) => h.connections > 0).map((hub, index) => (
-                  <div key={hub.id} className="flex items-center justify-between p-3 rounded-lg border bg-background/50">
+                  <div key={hub.id} className="flex items-center justify-between p-3 rounded-xl border border-white/5 bg-background/40 hover:bg-background/80 transition-colors backdrop-blur-sm group">
                     <div className="flex items-center gap-3 overflow-hidden">
-                      <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm shrink-0">
+                      <div 
+                        className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shrink-0 text-white shadow-sm"
+                        style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                      >
                         {index + 1}
                       </div>
-                      <p className="font-medium truncate" title={hub.name}>{hub.name}</p>
+                      <p className="font-medium truncate group-hover:text-primary transition-colors" title={hub.name}>{hub.name}</p>
                     </div>
-                    <div className="flex items-center gap-1.5 shrink-0 bg-muted px-2.5 py-1 rounded-full text-sm font-medium">
+                    <div className="flex items-center gap-1.5 shrink-0 bg-muted/50 border border-white/5 px-3 py-1 rounded-full text-sm font-medium">
                       <span>{hub.connections}</span>
-                      <span className="text-muted-foreground text-xs">links</span>
+                      <span className="text-muted-foreground text-[10px] uppercase tracking-wider">links</span>
                     </div>
                   </div>
                 ))

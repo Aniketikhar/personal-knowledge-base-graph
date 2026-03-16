@@ -24,8 +24,13 @@ export function ContextMenu({
 }: ContextMenuProps) {
   return (
     <div
-      style={{ top, left, right, bottom }}
-      className="absolute z-50 min-w-40 bg-card rounded-md border shadow-md flex flex-col p-1 animate-in fade-in zoom-in-95 duration-100"
+      style={{ 
+        top: bottom ? undefined : top,
+        left: right ? undefined : left,
+        bottom: bottom ?? undefined,
+        right: right ?? undefined
+       }}
+      className="absolute z-50 min-w-40 w-max h-max bg-card rounded-md border shadow-md flex flex-col p-1 animate-in fade-in zoom-in-95 duration-100"
     >
       {type === 'node' && (
         <>

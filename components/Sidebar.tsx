@@ -49,11 +49,13 @@ export function Sidebar({
         <div className="flex flex-col gap-3">
           <Button
             onClick={onAddNode}
-            className="w-full justify-start"
+            className="w-full justify-start bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:shadow-[0_0_20px_rgba(16,185,129,0.7)] border-0 font-medium text-base h-10 transition-all duration-300 active:scale-[0.98]"
             size="lg"
           >
-            <Plus className="mr-2 h-4 w-4" />
-            Add Node
+            <div className="bg-white/20 p-1 rounded-sm mr-3">
+              <Plus className="h-4 w-4 text-white" />
+            </div>
+            Add New Node
           </Button>
           
           <div className="grid grid-cols-2 gap-2">
@@ -77,10 +79,9 @@ export function Sidebar({
           
           <Button
             onClick={onArrange}
-            variant="secondary"
-            className="w-full"
+            className="w-full bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 text-white shadow-[0_0_15px_rgba(168,85,247,0.5)] hover:shadow-[0_0_20px_rgba(168,85,247,0.7)] border-0 transition-all duration-300"
           >
-            <Wand2 className="mr-2 h-4 w-4 text-primary" />
+            <Wand2 className="mr-2 h-4 w-4" />
             Magic Arrange
           </Button>
         </div>
