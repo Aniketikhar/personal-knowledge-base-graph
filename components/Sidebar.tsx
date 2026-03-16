@@ -1,6 +1,7 @@
 "use client";
 
 import { GraphAnalytics } from "./GraphAnalytics";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface SidebarProps {
   nodes: any[];
@@ -8,8 +9,7 @@ interface SidebarProps {
   onAddNode: () => void;
   onImportCSV: () => void;
   onExportJSON: () => void;
-  searchTerm: string;
-  onSearchChange: (value: string) => void;
+  onArrange: () => void;
   isOpen?: boolean;
   onClose?: () => void;
 }
@@ -20,8 +20,7 @@ export function Sidebar({
   onAddNode,
   onImportCSV,
   onExportJSON,
-  searchTerm,
-  onSearchChange,
+  onArrange,
   isOpen = false,
   onClose,
 }: SidebarProps) {
@@ -67,20 +66,20 @@ export function Sidebar({
               Export JSON
             </button>
           </div>
+          <button
+              onClick={onArrange}
+              className="w-full justify-start bg-secondary text-secondary-foreground hover:bg-secondary/80 h-9 px-4 py-2 mt-1 inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring shadow-sm"
+            >
+              ✨ Magic Arrange
+          </button>
         </div>
       </div>
 
       <div className="p-4 border-b">
-        <label className="text-sm font-medium leading-none mb-2 block">
-          Search / Highlight
+        <label className="text-sm font-medium leading-none mb-3 block">
+          Appearance
         </label>
-        <input
-          type="text"
-          placeholder="Search nodes by title..."
-          value={searchTerm}
-          onChange={(e) => onSearchChange(e.target.value)}
-          className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-        />
+        <ThemeToggle />
       </div>
 
       <div className="p-4 flex-1 overflow-y-auto">

@@ -12,6 +12,8 @@ export type ViewMode = "graph" | "dashboard";
 export default function Home() {
   const [currentView, setCurrentView] = useState<ViewMode>("graph");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isReadOnly, setIsReadOnly] = useState(false);
   const { nodes, edges } = useGraphStorage();
 
   return (
@@ -20,12 +22,18 @@ export default function Home() {
         currentView={currentView} 
         onViewChange={setCurrentView} 
         toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        isReadOnly={isReadOnly}
+        onReadOnlyChange={setIsReadOnly}
       />
       <main className="flex-1 relative flex overflow-hidden">
         {currentView === "graph" ? (
           <GraphCanvas 
              isMobileOpen={isSidebarOpen} 
              onCloseMobile={() => setIsSidebarOpen(false)} 
+             searchTerm={searchTerm}
+             isReadOnly={isReadOnly}
           />
         ) : (
           <DashboardView nodes={nodes} edges={edges} />
