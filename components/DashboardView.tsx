@@ -134,10 +134,13 @@ export function DashboardView({ nodes, edges }: DashboardViewProps) {
           {/* Bar Chart: Node Connection Distribution */}
           <div className="bg-card/60 backdrop-blur-md text-card-foreground p-6 rounded-2xl border border-white/10 shadow-lg flex flex-col h-full relative overflow-hidden">
             <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-            <h3 className="font-semibold text-lg mb-6 relative z-10 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-blue-500" />
-              Connection Distribution
-            </h3>
+            <div className="mb-6 relative z-10">
+              <h3 className="font-semibold text-lg flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-blue-500" />
+                Connection Distribution
+              </h3>
+              <p className="text-xs text-muted-foreground mt-1 ml-4 leading-tight">Shows how many relationships each node has. High numbers indicate central concepts.</p>
+            </div>
             <div className="flex-1 w-full min-h-0 relative z-10">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={stats.distributionData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
@@ -161,10 +164,13 @@ export function DashboardView({ nodes, edges }: DashboardViewProps) {
           {/* New Pie Chart: Node Types / Categories */}
           <div className="bg-card/60 backdrop-blur-md text-card-foreground p-6 rounded-2xl border border-white/10 shadow-lg flex flex-col h-full relative overflow-hidden">
             <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-            <h3 className="font-semibold text-lg mb-6 relative z-10 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              Node Categories
-            </h3>
+            <div className="mb-6 relative z-10">
+              <h3 className="font-semibold text-lg flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                Node Categories
+              </h3>
+              <p className="text-xs text-muted-foreground mt-1 ml-4 leading-tight">Proportion of your concepts separated by their core architectural importance.</p>
+            </div>
             <div className="flex-1 w-full min-h-0 relative z-10">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -197,10 +203,13 @@ export function DashboardView({ nodes, edges }: DashboardViewProps) {
           {/* Top Hubs List */}
           <div className="bg-card/60 backdrop-blur-md text-card-foreground p-6 rounded-2xl border border-white/10 shadow-lg flex flex-col h-full overflow-hidden relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-            <h3 className="font-semibold text-lg mb-6 relative z-10 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-amber-500" />
-              Top Knowledge Hubs
-            </h3>
+            <div className="mb-6 relative z-10">
+              <h3 className="font-semibold text-lg flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-amber-500" />
+                Top Knowledge Hubs
+              </h3>
+              <p className="text-xs text-muted-foreground mt-1 ml-4 leading-tight">The most highly-connected individual nodes acting as central pillars of your graph.</p>
+            </div>
             <div className="flex-1 w-full overflow-y-auto pr-2 space-y-3 relative z-10 scrollbar-thin scrollbar-thumb-white/10">
               {stats.sortedHubs.filter(h => h.connections > 0).length > 0 ? (
                 stats.sortedHubs.filter((h) => h.connections > 0).map((hub, index) => (
